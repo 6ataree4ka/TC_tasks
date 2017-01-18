@@ -1,0 +1,8 @@
+login: kasptester@mail.ru
+password: gfhjkmqwaszx@1
+browser: firefox
+url: http://www.onliner.by
+output_path: "/output/themes.csv"
+drivers:
+  chrome: "/drivers/chromedriver.exe"
+  ie: "/drivers/IEDriverServer.exe"

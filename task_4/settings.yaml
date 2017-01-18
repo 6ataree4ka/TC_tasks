@@ -1,0 +1,7 @@
+browser: chrome
+site:
+  url: http://www.cars.com/
+drivers:
+  chrome: "/drivers/chromedriver.exe"
+  ie: "/drivers/IEDriverServer.exe"
+wait: 30

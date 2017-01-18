@@ -1,0 +1,48 @@
+browser: firefox
+site:
+  url: http://store.steampowered.com/
+  about_steam_url: http://store.steampowered.com/about/
+  title:
+    en: "Action games on Steam"
+    ru: "Экшен в Steam"
+  locators:
+    language_id: language_pulldown
+    tab_id: genre_tab
+    link_text:
+      en: Action
+      ru: Экшен
+    specials_id: tab_select_Discounts
+    games_xpath: .//*[@id='DiscountsRows']/*[@class='tab_item']
+    discount:
+      part_1: ".//*[@id='DiscountsRows']/*[@data-ds-appid="
+      part_2: "]/*/*[@class='discount_pct']"
+    target_game:
+      part_1: ".//*[@id='DiscountsRows']/*[@data-ds-appid="
+      part_2: "]"
+    target_game_discount:
+      part_1: ".//*[@id='DiscountsRows']/*[@data-ds-appid="
+      part_2: "]/*/*[@class='discount_pct']"
+    target_game_price:
+      part_1: ".//*[@id='DiscountsRows']/*[@data-ds-appid="
+      part_2: "]/*/*/*[@class='discount_original_price']"
+    target_game_final_price:
+      part_1: ".//*[@id='DiscountsRows']/*[@data-ds-appid="
+      part_2: "]/*/*/*[@class='discount_final_price']"
+    age_validation_text:
+      en: "Please enter your birth date to continue:"
+      ru: "Пожалуйста, введите дату вашего рождения:"
+    age_day: .//*[@id='agecheck_form']/*[@name="ageDay"]
+    age_month: .//*[@id='agecheck_form']/*[@name="ageMonth"]
+    age_year: .//*[@id='agecheck_form']/*[@name="ageYear"]
+    age_submit: btnv6_blue_hoverfade
+    discount_class_name: discount_pct
+    price: discount_original_price
+    final_price: discount_final_price
+    tag_name: h2
+    install_steam_button: header_installsteam_btn_content
+    install_steam_now_button_id: about_install_steam_link
+downloads_dir: "\\downloads\\"
+steam_exe: \downloads\SteamSetup.exe
+drivers:
+  chrome: "/drivers/chromedriver.exe"
+wait: 300
