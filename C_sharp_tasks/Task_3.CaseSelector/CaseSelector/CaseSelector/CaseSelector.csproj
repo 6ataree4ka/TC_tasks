@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaseSelector.cs" />
+    <Compile Include="FileUtil.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CaseSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

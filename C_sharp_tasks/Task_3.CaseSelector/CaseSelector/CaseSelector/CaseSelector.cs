@@ -2,92 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace CaseSelector
 {
-    class CaseSelector
+    internal static class CaseSelector
     {
-        static void Main(string[] args)
+        public static void SelectCases(string filePath, int numberOfRequiredCases = 10)
         {
-            string filePath = "";
-            int caseNumber = 10;
-
-            do
-            {
-                Console.WriteLine("Enter file path: ");
-                string inputFilePath = Console.ReadLine().Trim();
-                if (System.IO.File.Exists(inputFilePath))
-                {
-                    filePath = inputFilePath;
-                }
-                else
-                {
-                    Console.WriteLine("'{0}' file doesn't exist.", inputFilePath);
-                }
-            }
-            while (filePath == "");
-
-            Console.WriteLine("Enter required number of cases (default = 10): ");
-            bool converted = Int32.TryParse(Console.ReadLine(), out caseNumber);
-            if (!converted || caseNumber < 1)
-            {
-                caseNumber = 10;
-            }
-
-            string resPath = SelectCases(filePath, caseNumber);
-            if (resPath != null)
-            {
-                Console.WriteLine("File with required number of cases is placed at {0}", resPath);
-            }
-            Console.ReadLine();
-        }
-
-        static string SelectCases(string file, int num = 10)
-        {
-            string[] lines = System.IO.File.ReadAllLines(file, Encoding.UTF8);
-            if (lines.Length - 1 < num)
+            var linesInOriginalFile = File.ReadAllLines(filePath, Encoding.UTF8);
+            if (linesInOriginalFile.Length - 1 < numberOfRequiredCases)
             {
                 Console.WriteLine("The number of required cases is more than number cases in original file.");
-                return null;
+                return;
             }
-            else
+            var selectedCases = new List<string>();
+            var random = new Random();
+            var indices = new List<int>();
+            while (indices.Count < numberOfRequiredCases)
             {
-                // num + 1 to reserve the first element for table head.
-                string[] resArray = new string[num + 1];
-
-                // Select random indices from original array with file strings.
-                Random random = new Random();
-                List<int> indices = new List<int>();
-                while (indices.Count < num)
+                var index = random.Next(1, linesInOriginalFile.Length);
+                if (indices.Count == 0 || !indices.Contains(index))
                 {
-                    int index = random.Next(1, lines.Length);
-                    if (indices.Count == 0 || !indices.Contains(index))
-                    {
-                        indices.Add(index);
-                    }
+                    indices.Add(index);
+                    selectedCases.Add(linesInOriginalFile[index]);
                 }
-
-                for (int i = 0; i < indices.Count; i++)
-                {
-                    int randomIndex = indices[i];
-                    resArray[i + 1] = lines[randomIndex];
-                }
-
-                // Get original array without selected to the result file elements.
-                string[] originalModified = lines.Except(resArray).ToArray();
-
-                // Add table head.
-                resArray[0] = lines[0];
-
-                // Write to result file.
-                string extension = System.IO.Path.GetExtension(file);
-                string resFilePath = file.Replace(extension, "_res" + extension);
-                System.IO.File.WriteAllLines(file.Replace(extension, "_res" + extension), resArray);
-
-                // Modify original file.
-                System.IO.File.WriteAllLines(file, originalModified, Encoding.UTF8);
-                return resFilePath;
             }
+            var remainedLinesInOriginalFile = linesInOriginalFile.Except(selectedCases).ToArray();
+            selectedCases.Insert(0, linesInOriginalFile[0]);
+            var extension = Path.GetExtension(filePath);
+            var resultFilePath = filePath.Replace(extension, $"_res{extension}");
+            File.WriteAllLines(resultFilePath, selectedCases);
+            File.WriteAllLines(filePath, remainedLinesInOriginalFile, Encoding.UTF8);
+            Console.WriteLine($"File with required number of cases is placed at {resultFilePath}");
         }
     }
 }
