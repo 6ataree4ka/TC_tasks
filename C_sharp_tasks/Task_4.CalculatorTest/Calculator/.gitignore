@@ -1,0 +1,8 @@
+.vs
+TestResults
+Calculator/bin/*
+Calculator/obj/*
+CalculatorTests/obj/*
+CalculatorTests/bin/*
+Calculator.sln.DotSettings.user
+packages
