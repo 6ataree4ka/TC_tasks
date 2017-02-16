@@ -1,0 +1,8 @@
+.vs
+TestResults
+Paint.Framework/bin/*
+Paint.Framework/obj/*
+PaintTest/obj/*
+PaintTest/bin/*
+*.user
+packages
